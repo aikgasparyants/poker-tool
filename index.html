@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Syndicate Poker</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#07100c">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADj0lEQVR42u3c204UQRCA4Z7N3guS+AKCJl4ouqgcHk1OKvpmCAI+03hlYgJLdtnZ6e7q7w93Ytd01T81fUjoXuy/ScBDTPu+lwU8yEQKQA6QA+QAOUAOkAPkADlADpADIAfIAXJgjUyTG3voHCAHyAFygBwgB+rayvb2stA5QA6QA+QAOUAOkAMxcGUPnQPkADlADpAD5AA5QA6QA+QAyAFygBwgB7LgD+ND58ATOkeMaVyez+b909H5n3hxx6Hb2nsd0om1VitXXHIMX54BS5UrLjnWW54VS5UrrgXpqBV6wji54pIjT2YXHy1XXHLkzOkiY+aKS4782Xx85FxxyVFKHueNnysuOcrK4P0oueKSAxakVb1Y/8fKFZccqKhz9KnMn/FfqcvzWca4Bf7oHPBZwfJ0W7MSL94uv85aq8TRWXF3cjoHyAFyYED8YfxSKLAQOgfIAXKAHGhYjsOzO3HJAZ0DVcpR6pX94enYnfbw9C5jXFf28FkZ8JXKEStXXHJA56jqxbofJVdccpSVwXnj54pLjlLy+PjIueKSI382FxkzV9wS6J5/eFXgY/36ttfa6q9AYyYyZb71fVba8aPYmToEM8dqF6Sx/XDOwY9a5+X4HPO3spvvd6p40KvvHyPl/eDktvyHnMimuUT4rMTwo6JZTGTW88dZkNbrR3VPPpFlzxxtK1tXrivtdhWfc9SS8Xq/g3UfgpWf96pX0NWfkJac/dr3Vo7PEVqOMl/QAEd2QTpHaZWIcZgb57NSTj3CXAOFWnOUUJVIF4Td5u5OisXVRbbL/YPj20iZDLhbyVWhYGaE3cqOX6d4ZqTA5xxjViukGSn2Idg4NYtqRgp/QrruygU2Izk+x2Nb2Y3d7fCTvL74tI5h949vYuetic6xjiqGN6Ohz8qwtWzBjLbWHENVtBEzmluQrl7XdsxocbeySnWbMqPRrezTatyaGanZc45lK92gGSmlbuPddmqV6x8LnX/sf7lpMz9OSEEOkGPwb8pSv0kOkAPkkAKQY6VlRJvLDp0D5AA5QA6Qo4zVaLNrUp0D5MDyTPu+l4UFaS1XOgfI8Y/fPz9n+b/kADlADpDDgsOygxwgB4aie/b2pSxA5wA5QA6QA+RAeUyTG3voHCAHyAFygBwgB+rayvb2stA5QA6QA+QAOUAOkAMxcGUPnQPkADlADpAD5AA5QA6QA+QAyAFygBxYJ38BrYbUazTfUqwAAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADj0lEQVR42u3c204UQRCA4Z7N3guS+AKCJl4ouqgcHk1OKvpmCAI+03hlYgJLdtnZ6e7q7w93Ytd01T81fUjoXuy/ScBDTPu+lwU8yEQKQA6QA+QAOUAOkAPkADlADpADIAfIAXJgjUyTG3voHCAHyAFygBwgB+rayvb2stA5QA6QA+QAOUAOkAMxcGUPnQPkADlADpAD5AA5QA6QA+QAyAFygBwgB7LgD+ND58ATOkeMaVyez+b909H5n3hxx6Hb2nsd0om1VitXXHIMX54BS5UrLjnWW54VS5UrrgXpqBV6wji54pIjT2YXHy1XXHLkzOkiY+aKS4782Xx85FxxyVFKHueNnysuOcrK4P0oueKSAxakVb1Y/8fKFZccqKhz9KnMn/FfqcvzWca4Bf7oHPBZwfJ0W7MSL94uv85aq8TRWXF3cjoHyAFyYED8YfxSKLAQOgfIAXKAHGhYjsOzO3HJAZ0DVcpR6pX94enYnfbw9C5jXFf28FkZ8JXKEStXXHJA56jqxbofJVdccpSVwXnj54pLjlLy+PjIueKSI382FxkzV9wS6J5/eFXgY/36ttfa6q9AYyYyZb71fVba8aPYmToEM8dqF6Sx/XDOwY9a5+X4HPO3spvvd6p40KvvHyPl/eDktvyHnMimuUT4rMTwo6JZTGTW88dZkNbrR3VPPpFlzxxtK1tXrivtdhWfc9SS8Xq/g3UfgpWf96pX0NWfkJac/dr3Vo7PEVqOMl/QAEd2QTpHaZWIcZgb57NSTj3CXAOFWnOUUJVIF4Td5u5OisXVRbbL/YPj20iZDLhbyVWhYGaE3cqOX6d4ZqTA5xxjViukGSn2Idg4NYtqRgp/QrruygU2Izk+x2Nb2Y3d7fCTvL74tI5h949vYuetic6xjiqGN6Ohz8qwtWzBjLbWHENVtBEzmluQrl7XdsxocbeySnWbMqPRrezTatyaGanZc45lK92gGSmlbuPddmqV6x8LnX/sf7lpMz9OSEEOkGPwb8pSv0kOkAPkkAKQY6VlRJvLDp0D5AA5QA6Qo4zVaLNrUp0D5MDyTPu+l4UFaS1XOgfI8Y/fPz9n+b/kADlADpDDgsOygxwgB4aie/b2pSxA5wA5QA6QA+RAeUyTG3voHCAHyAFygBwgB+rayvb2stA5QA6QA+QAOUAOkAMxcGUPnQPkADlADpAD5AA5QA6QA+QAyAFygBxYJ38BrYbUazTfUqwAAAAASUVORK5CYII=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --felt:#0d2019;--felt-hi:#123128;--base:#07100c;--line:rgba(255,255,255,.10);
+  --bone:#EDEFEA;--dim:#7E8C86;--gold:#D8B45A;--win:#35B37E;--lose:#E2464A;
+  --top:env(safe-area-inset-top);--bot:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+html,body{overscroll-behavior:none}
+body{
+  margin:0;background:radial-gradient(120% 50% at 50% 0%,#14382c 0%,transparent 55%),var(--base);
+  color:var(--bone);font-family:"DM Sans",-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.4;
+  padding:calc(var(--top) + 54px) 12px calc(var(--bot) + 190px);
+  -webkit-user-select:none;user-select:none;
+}
+.disp,h1,h2{font-family:"Bebas Neue","DM Sans",sans-serif;letter-spacing:.03em;font-weight:400;margin:0}
+.mono{font-family:"DM Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+/* ---- шапка ---- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:40;padding:calc(var(--top) + 8px) 12px 8px;
+  background:rgba(7,16,12,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px}
+.bar h1{font-size:22px;line-height:1;flex:1}
+.bar .street{font-family:"DM Mono",monospace;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+.tap{background:#0d211a;border:1px solid var(--line);color:var(--bone);border-radius:9px;
+  padding:8px 11px;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  min-height:36px;cursor:pointer}
+.tap.gold{background:var(--gold);color:#0b1712;border-color:var(--gold)}
+/* ---- блоки ---- */
+.card{background:linear-gradient(180deg,var(--felt-hi),var(--felt));border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.ttl{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+  margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+/* ---- карты ---- */
+.hand{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.group{display:flex;flex-direction:column;gap:6px}
+.group .lab{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+.slots{display:flex;gap:6px}
+.slot{width:50px;height:70px;border-radius:9px;border:1px dashed rgba(255,255,255,.24);background:#08150f;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.slot.big{width:62px;height:86px}
+.slot.active{border:2px solid var(--gold);box-shadow:0 0 0 5px rgba(216,180,90,.14)}
+.slot.filled{background:#F5F4EF;border:1px solid #d4d2c9}
+.slot .r{font-weight:700;font-size:24px;line-height:1}
+.slot.big .r{font-size:30px}
+.slot .s{font-size:18px;line-height:1}
+.slot .plus{color:#3f5a4f;font-size:22px}
+.slot .x{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:#04100b;
+  color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.sp{color:#111}.he{color:#C4262A}.di{color:#1B62B0}.cl{color:#1E7D52}
+/* ---- деньги ---- */
+.money{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld .k{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+input,select{background:#08150f;border:1px solid var(--line);color:var(--bone);border-radius:10px;
+  padding:12px;font-family:"DM Mono",monospace;font-size:17px;width:100%;-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+  background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
+.quick{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.q{flex:1;min-width:52px;background:#0d211a;border:1px solid var(--line);color:var(--dim);border-radius:8px;
+  padding:9px 4px;font-family:"DM Mono",monospace;font-size:11px;cursor:pointer}
+.q:active{background:var(--gold);color:#0b1712}
+/* ---- метрики ---- */
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.m{background:#08150f;border:1px solid var(--line);border-radius:10px;padding:9px}
+.m .k{font-family:"DM Mono",monospace;font-size:8px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m .v{font-family:"DM Mono",monospace;font-size:17px;margin-top:2px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.brow{display:grid;grid-template-columns:88px 1fr 46px;align-items:center;gap:8px;font-size:12px}
+.brow .t{background:#0d211a;height:8px;border-radius:4px;overflow:hidden}
+.brow .t i{display:block;height:100%;background:var(--win)}
+.brow .n{font-family:"DM Mono",monospace;font-size:11px;color:var(--dim);text-align:right}
+.chip{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;padding:5px 9px;border-radius:20px;
+  border:1px solid var(--line);color:var(--dim);margin:0 5px 5px 0}
+.chip.ok{color:var(--win);border-color:rgba(53,179,126,.45)}
+.chip.no{color:var(--lose);border-color:rgba(226,70,74,.45)}
+details summary{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:6px 0}
+.matrix{display:grid;grid-template-columns:repeat(13,1fr);gap:2px}
+.mx{aspect-ratio:1;border-radius:3px;background:#0d211a;color:#3f5a4f;font-family:"DM Mono",monospace;font-size:7px;display:flex;align-items:center;justify-content:center}
+.mx.in{background:rgba(53,179,126,.22);color:#8fd9ba}
+.mx.now{background:var(--gold);color:#0b1712}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.locked{opacity:.3;pointer-events:none}
+/* ---- нижний вердикт ---- */
+.verdict{position:fixed;left:0;right:0;bottom:0;z-index:45;padding:12px 14px calc(var(--bot) + 12px);
+  background:rgba(7,16,12,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.verdict .top{display:flex;align-items:baseline;gap:10px}
+.verdict .act{font-family:"Bebas Neue",sans-serif;font-size:34px;line-height:1;flex:1}
+.verdict .eqv{font-family:"DM Mono",monospace;font-size:20px}
+.verdict .why{color:var(--dim);font-size:12.5px;margin-top:4px;max-height:2.9em;overflow:hidden;transition:max-height .25s}
+.verdict.open .why{max-height:14em}
+.v-fold .act,.v-fold .eqv{color:var(--lose)}
+.v-call .act,.v-call .eqv{color:var(--gold)}
+.v-raise .act,.v-raise .eqv{color:var(--win)}
+.gauge{position:relative;height:10px;border-radius:5px;background:#0d211a;border:1px solid var(--line);overflow:visible;margin-top:9px}
+.gauge i{position:absolute;left:0;top:0;bottom:0;border-radius:5px 0 0 5px;background:linear-gradient(90deg,rgba(53,179,126,.3),var(--win));width:0;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.gauge b{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--gold);left:0;transition:left .45s}
+.gauge b::after{content:'';position:absolute;top:-4px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+/* ---- шторки ---- */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;opacity:0;pointer-events:none;transition:.2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:55;background:#0c1e17;border-top:1px solid var(--line);
+  border-radius:20px 20px 0 0;padding:10px 14px calc(var(--bot) + 18px);transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet.on{transform:translateY(0)}
+.grab{width:38px;height:4px;border-radius:2px;background:#2b4a3d;margin:0 auto 12px}
+.sheet h2{font-size:22px;margin-bottom:2px}
+.sheet .hint{font-family:"DM Mono",monospace;font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.ranks{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.rk{background:#F5F4EF;color:#111;border:none;border-radius:11px;height:54px;font-family:"DM Sans",sans-serif;font-weight:700;font-size:24px;cursor:pointer}
+.rk:disabled{opacity:.15}
+.suits{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.st{background:#F5F4EF;border:none;border-radius:12px;height:76px;font-size:34px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.st:disabled{opacity:.15}
+.sheet .rowbtns{display:flex;gap:8px;margin-top:14px}
+.sheet .rowbtns .tap{flex:1;text-align:center}
+.setrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+#install{display:none;background:#1a2c14;border:1px solid rgba(216,180,90,.4);border-radius:12px;padding:12px;margin-bottom:10px;font-size:13px;color:#dce8cf}
+#nojs{background:#3a2c0e;border:1px solid var(--gold);color:#f4e4bb;font-family:"DM Mono",monospace;font-size:12px;padding:10px;border-radius:10px;margin-bottom:10px}
+#errbar{display:none;background:#3a0e10;border:1px solid var(--lose);color:#ffd7d8;font-family:"DM Mono",monospace;font-size:12px;padding:10px;border-radius:10px;margin-bottom:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Poker</h1>
+  <span class="street" id="streetLab">префлоп</span>
+  <button class="tap" id="btnSettings">Стол</button>
+  <button class="tap" id="btnReset">Сброс</button>
+</div>
+
+<div id="errbar"></div>
+<div id="nojs">JavaScript не выполняется. Откройте файл в браузере (Safari по ссылке с хостинга), а не в предпросмотре «Файлов».</div>
+<div id="install">Добавьте на экран «Домой»: кнопка «Поделиться» → «На экран Домой». Ассистент откроется без адресной строки, как приложение.</div>
+
+<div class="card">
+  <div class="ttl"><span>Карты</span><span class="mono" id="rangeMini">рука не выбрана</span></div>
+  <div class="hand">
+    <div class="group"><span class="lab">Рука</span><div class="slots" id="slotsHero"></div></div>
+    <div class="group"><span class="lab">Флоп</span><div class="slots" id="slotsFlop"></div></div>
+    <div class="group"><span class="lab">Тёрн</span><div class="slots" id="slotsTurn"></div></div>
+    <div class="group"><span class="lab">Ривер</span><div class="slots" id="slotsRiver"></div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ttl"><span>Банк</span><span class="mono" id="blindMini"></span></div>
+  <div class="money">
+    <div class="fld"><span class="k">Банк сейчас</span><input class="mono" id="pot" type="number" inputmode="decimal" value="7" min="0"></div>
+    <div class="fld"><span class="k">Нужно доставить</span><input class="mono" id="call" type="number" inputmode="decimal" value="0" min="0"></div>
+  </div>
+  <div class="quick" id="quickCall">
+    <button class="q" data-c="0">чек</button>
+    <button class="q" data-c="0.33">⅓ банка</button>
+    <button class="q" data-c="0.5">½ банка</button>
+    <button class="q" data-c="0.75">¾ банка</button>
+    <button class="q" data-c="1">банк</button>
+  </div>
+</div>
+
+<div id="analysis">
+  <div class="card">
+    <div class="ttl"><span>Метрики</span><span class="mono" id="simInfo">—</span></div>
+    <div class="metrics" id="metrics"></div>
+    <div style="margin-top:10px" id="drawChips"></div>
+    <button class="tap" id="precise" style="width:100%;margin-top:8px">Точный расчёт · 60 000 раздач</button>
+  </div>
+
+  <div class="card">
+    <div class="ttl"><span>Ауты</span><span class="mono" id="nutsInfo"></span></div>
+    <div id="handNow" class="mono" style="font-size:15px;margin-bottom:8px">—</div>
+    <div id="outs" class="mono" style="font-size:14px">—</div>
+    <div class="note" id="outsNote"></div>
+    <details style="margin-top:6px"><summary>Ваша рука к риверу</summary><div class="bars" id="dist" style="margin-top:8px"></div></details>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ttl"><span>Диапазон</span><span class="mono">198 комб · 14.9%</span></div>
+  <div id="rangeVerdict" class="mono" style="font-size:14px;color:var(--dim)">Выберите две карты руки.</div>
+  <details style="margin-top:8px"><summary>Таблица разрешённых рук</summary>
+    <div class="matrix" id="matrix" style="margin-top:8px"></div>
+    <div class="note">Верх-право — одномастные, низ-лево — разномастные, диагональ — пары.</div>
+  </details>
+</div>
+
+<div class="verdict" id="verdict">
+  <div class="top"><span class="act">Ждёт карты</span><span class="eqv" id="eqv">—</span></div>
+  <div class="why">Нажмите на пустую карту и выберите руку.</div>
+  <div class="gauge"><i id="gFill"></i><b id="gThr"></b></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="sheet" id="sheetCard">
+  <div class="grab"></div>
+  <h2 id="sheetTitle">Ранг</h2>
+  <div class="hint" id="sheetHint">Выберите номинал</div>
+  <div class="ranks" id="rankGrid"></div>
+  <div class="suits" id="suitGrid" style="display:none"></div>
+  <div class="rowbtns"><button class="tap" id="sheetBack" style="display:none">Назад</button><button class="tap" id="sheetClose">Закрыть</button></div>
+</div>
+
+<div class="sheet" id="sheetSet">
+  <div class="grab"></div>
+  <h2>Стол</h2>
+  <div class="hint">Настройки раздачи</div>
+  <div class="setrow">
+    <div class="fld"><span class="k">Малый блайнд</span><input class="mono" id="sb" type="number" inputmode="decimal" value="1"></div>
+    <div class="fld"><span class="k">Большой блайнд</span><input class="mono" id="bb" type="number" inputmode="decimal" value="2"></div>
+  </div>
+  <div class="setrow">
+    <div class="fld"><span class="k">Эффективный стек</span><input class="mono" id="stack" type="number" inputmode="decimal" value="200"></div>
+    <div class="fld"><span class="k">Оппоненты</span><select id="opps"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+  </div>
+  <div class="setrow">
+    <div class="fld"><span class="k">Позиция</span><select id="pos">
+      <option value="ep">UTG</option><option value="mp">MP</option><option value="co" selected>CO</option>
+      <option value="btn">BTN</option><option value="sb">SB</option><option value="bb">BB</option></select></div>
+    <div class="fld"><span class="k">Их диапазон</span><select id="oppRange">
+      <option value="any">Любые</option><option value="loose" selected>Средний</option><option value="tight">Тайтовый</option></select></div>
+  </div>
+  <div class="fld"><span class="k">Действие до вас</span><select id="facing">
+    <option value="none">Никто не повысил</option><option value="raise">Один рейз</option>
+    <option value="3bet">3-бет</option><option value="allin">Олл-ин</option></select></div>
+  <div class="rowbtns"><button class="tap gold" id="setClose" style="width:100%">Готово</button></div>
+</div>
+
+<script>
+window.onerror=function(m,s,l){var b=document.getElementById('errbar');if(b){b.style.display='block';b.textContent='Ошибка скрипта: '+m+' · строка '+l;}return false;};
+var E={};
+function bindDom(){
+  ['slotsHero','slotsFlop','slotsTurn','slotsRiver','matrix','rangeVerdict','rangeMini','blindMini','streetLab',
+   'metrics','simInfo','drawChips','precise','handNow','nutsInfo','dist','outs','outsNote','verdict','eqv','gFill','gThr',
+   'sb','bb','stack','pot','call','pos','opps','oppRange','facing','scrim','sheetCard','sheetSet','rankGrid','suitGrid',
+   'sheetTitle','sheetHint','sheetBack','sheetClose','setClose','btnSettings','btnReset','quickCall','analysis','install','nojs'
+  ].forEach(function(id){E[id]=document.getElementById(id);});
+}
+
+/* ================= ядро ================= */
+var RANKS=['2','3','4','5','6','7','8','9','T','J','Q','K','A'];
+var SUITS=[{s:'♠',c:'sp'},{s:'♥',c:'he'},{s:'♦',c:'di'},{s:'♣',c:'cl'}];
+var CATS=['Старшая карта','Пара','Две пары','Сет','Стрит','Флеш','Фулл-хаус','Каре','Стрит-флеш'];
+var SF=759375;
+function rOf(c){return c>>2;} function sOf(c){return c&3;}
+function mk(cat,a,b,c,d,e){return ((((cat*15+a)*15+(b||0))*15+(c||0))*15+(d||0))*15+(e||0);}
+function straightHigh(m){
+  for(var h=12;h>=4;h--) if(((m>>(h-4))&31)===31) return h;
+  if((m&0x100F)===0x100F) return 3;
+  return -1;
+}
+function evalHand(cs){
+  var rc=new Array(13).fill(0),sc=[0,0,0,0],sr=[0,0,0,0],mask=0,i;
+  for(i=0;i<cs.length;i++){var c=cs[i],r=c>>2,s=c&3;rc[r]++;sc[s]++;sr[s]|=1<<r;mask|=1<<r;}
+  var fs=-1; for(var s2=0;s2<4;s2++) if(sc[s2]>=5) fs=s2;
+  if(fs>=0){var hh=straightHigh(sr[fs]); if(hh>=0) return mk(8,hh);}
+  var quad=-1,trips=[],pairs=[];
+  for(var r2=12;r2>=0;r2--){if(rc[r2]===4&&quad<0)quad=r2;else if(rc[r2]===3)trips.push(r2);else if(rc[r2]===2)pairs.push(r2);}
+  function kick(ex,n){var o=[];for(var r=12;r>=0&&o.length<n;r--)if(rc[r]>0&&ex.indexOf(r)<0)o.push(r);while(o.length<n)o.push(0);return o;}
+  if(quad>=0){var k1=kick([quad],1);return mk(7,quad,k1[0]);}
+  if(trips.length&&(trips.length>1||pairs.length)){
+    var t=trips[0],p=trips.length>1?Math.max(trips[1],pairs.length?pairs[0]:-1):pairs[0];
+    return mk(6,t,p);
+  }
+  if(fs>=0){var rs=[];for(var r3=12;r3>=0&&rs.length<5;r3--)if(sr[fs]&(1<<r3))rs.push(r3);return mk(5,rs[0],rs[1],rs[2],rs[3],rs[4]);}
+  var st=straightHigh(mask); if(st>=0) return mk(4,st);
+  if(trips.length){var t2=trips[0],k2=kick([t2],2);return mk(3,t2,k2[0],k2[1]);}
+  if(pairs.length>=2){var k3=kick([pairs[0],pairs[1]],1);return mk(2,pairs[0],pairs[1],k3[0]);}
+  if(pairs.length===1){var k4=kick([pairs[0]],3);return mk(1,pairs[0],k4[0],k4[1],k4[2]);}
+  var k5=kick([],5);return mk(0,k5[0],k5[1],k5[2],k5[3],k5[4]);
+}
+function catOf(v){return Math.floor(v/SF);}
+
+var ANY=['AK','AQ','AJ','KQ','KJ','QJ'], SUITED=['JT','T9','98','AT','A9','A8'];
+function combo(a,b){
+  var r1=rOf(a),s1=sOf(a),r2=rOf(b),s2=sOf(b),tmp;
+  if(r1<r2){tmp=r1;r1=r2;r2=tmp;tmp=s1;s1=s2;s2=tmp;}
+  return {hi:RANKS[r1],lo:RANKS[r2],pair:r1===r2,suited:s1===s2,code:RANKS[r1]+RANKS[r2]};
+}
+function tierOf(k){
+  if(k.pair) return 'AKQJ'.indexOf(k.hi)>=0?1:('T987'.indexOf(k.hi)>=0?2:4);
+  if(k.code==='AK') return 1;
+  if(['AQ','AJ','KQ'].indexOf(k.code)>=0) return 2;
+  return 3;
+}
+var TIER_NAME={1:'Премиум',2:'Сильная',3:'Спекулятивная',4:'Мелкая пара · сет-майнинг'};
+function inHeroRange(a,b){
+  var k=combo(a,b);
+  if(k.pair||ANY.indexOf(k.code)>=0||(k.suited&&SUITED.indexOf(k.code)>=0)) return {ok:true,tier:tierOf(k),k:k};
+  return {ok:false,k:k};
+}
+function inLoose(a,b){
+  var k=combo(a,b),B='TJQKA';
+  if(k.pair) return true;
+  if(B.indexOf(k.hi)>=0&&B.indexOf(k.lo)>=0) return true;
+  if(k.suited&&k.hi==='A') return true;
+  if(k.suited&&RANKS.indexOf(k.hi)-RANKS.indexOf(k.lo)===1&&RANKS.indexOf(k.lo)>=2) return true;
+  if(k.hi==='A'&&RANKS.indexOf(k.lo)>=7) return true;
+  return false;
+}
+function inTight(a,b){return inHeroRange(a,b).ok;}
+
+/* ================= состояние ================= */
+var state={hero:[null,null],flop:[null,null,null],turn:[null],river:[null]};
+var active={street:'hero',idx:0}, pendingRank=-1;
+var ORDER=[['hero',0],['hero',1],['flop',0],['flop',1],['flop',2],['turn',0],['river',0]];
+function used(){return [].concat(state.hero,state.flop,state.turn,state.river).filter(function(c){return c!==null;});}
+function board(){return [].concat(state.flop,state.turn,state.river).filter(function(c){return c!==null;});}
+
+function slotHTML(street,i,big){
+  var c=state[street][i], on=(active.street===street&&active.idx===i)?' active':'';
+  var cls='slot'+(big?' big':'')+on;
+  if(c===null) return '<div class="'+cls+'" data-st="'+street+'" data-i="'+i+'"><span class="plus">+</span></div>';
+  return '<div class="'+cls+' filled" data-st="'+street+'" data-i="'+i+'">'+
+    '<span class="r '+SUITS[sOf(c)].c+'">'+RANKS[rOf(c)]+'</span>'+
+    '<span class="s '+SUITS[sOf(c)].c+'">'+SUITS[sOf(c)].s+'</span>'+
+    '<span class="x" data-clear="1">×</span></div>';
+}
+function renderSlots(){
+  E.slotsHero.innerHTML=slotHTML('hero',0,1)+slotHTML('hero',1,1);
+  E.slotsFlop.innerHTML=slotHTML('flop',0)+slotHTML('flop',1)+slotHTML('flop',2);
+  E.slotsTurn.innerHTML=slotHTML('turn',0);
+  E.slotsRiver.innerHTML=slotHTML('river',0);
+  var n=board().length;
+  E.streetLab.textContent=n===0?'префлоп':n===3?'флоп':n===4?'тёрн':'ривер';
+}
+function renderMatrix(){
+  var R=RANKS.slice().reverse(),h='',i,j;
+  var hk=(state.hero[0]!==null&&state.hero[1]!==null)?combo(state.hero[0],state.hero[1]):null;
+  for(i=0;i<13;i++)for(j=0;j<13;j++){
+    var code,suited=false,pair=false,lab;
+    if(i===j){code=R[i]+R[i];pair=true;lab=R[i]+R[i];}
+    else if(j>i){code=R[i]+R[j];suited=true;lab=R[i]+R[j]+'s';}
+    else {code=R[j]+R[i];lab=R[j]+R[i]+'o';}
+    var ok=pair||ANY.indexOf(code)>=0||(suited&&SUITED.indexOf(code)>=0);
+    var now=hk&&hk.code===code&&(pair||hk.suited===suited);
+    h+='<div class="mx '+(ok?'in':'')+' '+(now?'now':'')+'">'+lab+'</div>';
+  }
+  E.matrix.innerHTML=h;
+}
+
+/* ---- шторка выбора карты ---- */
+function openSheet(el){E.scrim.classList.add('on');el.classList.add('on');}
+function closeSheets(){E.scrim.classList.remove('on');E.sheetCard.classList.remove('on');E.sheetSet.classList.remove('on');}
+function openCardSheet(){
+  pendingRank=-1;
+  E.suitGrid.style.display='none';E.rankGrid.style.display='';E.sheetBack.style.display='none';
+  E.sheetTitle.textContent='Ранг';
+  E.sheetHint.textContent=({hero:'Ваша рука',flop:'Флоп',turn:'Тёрн',river:'Ривер'})[active.street]+' · выберите номинал';
+  var u=used(),h='';
+  for(var r=12;r>=0;r--){
+    var free=0;
+    for(var s=0;s<4;s++) if(u.indexOf(r*4+s)<0) free++;
+    h+='<button class="rk" data-r="'+r+'" '+(free?'':'disabled')+'>'+RANKS[r]+'</button>';
+  }
+  E.rankGrid.innerHTML=h;
+  openSheet(E.sheetCard);
+}
+function showSuits(r){
+  pendingRank=r;
+  E.rankGrid.style.display='none';E.suitGrid.style.display='grid';E.sheetBack.style.display='';
+  E.sheetTitle.textContent='Масть · '+RANKS[r];
+  E.sheetHint.textContent='Выберите масть';
+  var u=used(),h='';
+  for(var s=0;s<4;s++){
+    var c=r*4+s;
+    h+='<button class="st '+SUITS[s].c+'" data-s="'+s+'" '+(u.indexOf(c)<0?'':'disabled')+'>'+SUITS[s].s+'</button>';
+  }
+  E.suitGrid.innerHTML=h;
+}
+function place(c){
+  var street=active.street;
+  state[street][active.idx]=c;
+  var i=-1,j;
+  for(j=0;j<ORDER.length;j++) if(ORDER[j][0]===active.street&&ORDER[j][1]===active.idx) i=j;
+  var sameStreetNext=false;
+  for(j=i+1;j<ORDER.length;j++){
+    if(state[ORDER[j][0]][ORDER[j][1]]===null){
+      active={street:ORDER[j][0],idx:ORDER[j][1]};
+      sameStreetNext=(ORDER[j][0]===street);
+      break;
+    }
+  }
+  refresh();
+  if(sameStreetNext) openCardSheet(); else closeSheets();
+}
+function onDocClick(e){
+  var x=e.target.closest('[data-clear]');
+  if(x){var sl0=x.closest('.slot');state[sl0.dataset.st][+sl0.dataset.i]=null;active={street:sl0.dataset.st,idx:+sl0.dataset.i};refresh();return;}
+  var sl=e.target.closest('.slot');
+  if(sl){active={street:sl.dataset.st,idx:+sl.dataset.i};renderSlots();openCardSheet();return;}
+  var rk=e.target.closest('.rk');
+  if(rk&&!rk.disabled){showSuits(+rk.dataset.r);return;}
+  var st=e.target.closest('.st');
+  if(st&&!st.disabled&&pendingRank>=0){place(pendingRank*4+(+st.dataset.s));return;}
+  var q=e.target.closest('.q');
+  if(q){var pv=+E.pot.value||0;E.call.value=(pv*(+q.dataset.c)).toFixed(1).replace(/\.0$/,'');refresh();return;}
+  if(e.target.closest('#verdict')){E.verdict.classList.toggle('open');return;}
+}
+
+/* ================= Монте-Карло ================= */
+function takeRandom(pool){var i=(Math.random()*pool.length)|0,c=pool[i];pool[i]=pool[pool.length-1];pool.pop();return c;}
+function drawOpp(pool,mode){
+  if(mode==='any') return [takeRandom(pool),takeRandom(pool)];
+  var test=mode==='tight'?inTight:inLoose;
+  for(var t=0;t<120;t++){
+    var i=(Math.random()*pool.length)|0,j=(Math.random()*pool.length)|0;
+    if(i===j) continue;
+    if(test(pool[i],pool[j])){
+      var a=pool[i],b=pool[j],hi=Math.max(i,j),lo=Math.min(i,j);
+      pool[hi]=pool[pool.length-1];pool.pop();
+      pool[lo]=pool[pool.length-1];pool.pop();
+      return [a,b];
+    }
+  }
+  return [takeRandom(pool),takeRandom(pool)];
+}
+function simulate(hero,bd,nOpp,mode,iters){
+  var u={},i;
+  hero.concat(bd).forEach(function(c){u[c]=1;});
+  var base=[];for(i=0;i<52;i++) if(!u[i]) base.push(i);
+  var win=0,tie=0,cats=new Array(9).fill(0);
+  for(var it=0;it<iters;it++){
+    var pool=base.slice(),opps=[],o;
+    for(o=0;o<nOpp;o++) opps.push(drawOpp(pool,mode));
+    var b=bd.slice(); while(b.length<5) b.push(takeRandom(pool));
+    var hs=evalHand(hero.concat(b));
+    cats[catOf(hs)]++;
+    var best=-1;
+    for(o=0;o<opps.length;o++){var v=evalHand(opps[o].concat(b)); if(v>best) best=v;}
+    if(hs>best) win++; else if(hs===best) tie++;
+  }
+  return {win:win/iters,tie:tie/iters,eq:(win+tie/2)/iters,cats:cats.map(function(x){return x/iters;})};
+}
+function analyseOuts(hero,bd){
+  if(bd.length<3||bd.length>4) return null;
+  var cur=evalHand(hero.concat(bd)),curCat=catOf(cur),u={},i;
+  hero.concat(bd).forEach(function(c){u[c]=1;});
+  var topBoard=Math.max.apply(null,bd.map(rOf)),byCat={},total=0;
+  for(i=0;i<52;i++){
+    if(u[i]) continue;
+    var v=evalHand(hero.concat(bd,[i])),cat=catOf(v),rc=rOf(i);
+    if(cat<=curCat) continue;
+    if(cat<=3&&bd.some(function(x){return rOf(x)===rc;})&&!hero.some(function(x){return rOf(x)===rc;})) continue;
+    if(cat===1&&Math.floor(v/50625)%15<topBoard) continue;
+    byCat[cat]=(byCat[cat]||0)+1;total++;
+  }
+  var unseen=52-Object.keys(u).length,toCome=5-bd.length,nonOut=unseen-total,miss=1;
+  for(i=0;i<toCome;i++) miss*=(nonOut-i)/(unseen-i);
+  return {total:total,byCat:byCat,prob:1-miss,toCome:toCome,unseen:unseen};
+}
+function nutsNow(hero,bd){
+  if(bd.length<3) return null;
+  var u={},rest=[],i,j;
+  hero.concat(bd).forEach(function(c){u[c]=1;});
+  for(i=0;i<52;i++) if(!u[i]) rest.push(i);
+  var best=-1;
+  for(i=0;i<rest.length;i++)for(j=i+1;j<rest.length;j++){
+    var v=evalHand([rest[i],rest[j]].concat(bd));
+    if(v>best) best=v;
+  }
+  return {val:best,cat:catOf(best)};
+}
+
+/* ================= советы ================= */
+function preflopAdvice(tier,pos,facing,bbv,stack){
+  var late=['co','btn'].indexOf(pos)>=0, blind=['sb','bb'].indexOf(pos)>=0;
+  if(facing==='none'){
+    if(tier===1) return {a:'Рейз',w:'Открывайте 3 bb. Это верхушка вашего диапазона — стройте банк.'};
+    if(tier===2) return {a:'Рейз',w:'Открывайте 3 bb. Рука играет сама, но осторожно против 3-бета вне позиции.'};
+    if(tier===3) return (late||blind)?{a:'Рейз',w:'Открывайте 2.5 bb. В поздней позиции рука окупается за счёт инициативы.'}:{a:'Фолд',w:'Из ранней позиции спекулятивная рука убыточна. Ждите позиции.'};
+    return late?{a:'Рейз',w:'Открывайте 2.5 bb. Цель — сет, он приходит 1 раз из 8.5.'}:{a:'Колл',w:'Дёшево заходите за сетом при глубоких стеках: нужно 15× от вложения.'};
+  }
+  if(facing==='raise'){
+    if(tier===1) return {a:'Рейз',w:'3-бет ×3 от рейза. Не давайте смотреть флоп бесплатно.'};
+    if(tier===2) return {a:'Колл',w:'Колл в позиции, фолд к 4-бету. Против ранней позиции AJ и KQ уже маргинальны.'};
+    if(tier===3) return late?{a:'Колл',w:'Только в позиции и при глубоких стеках — играете на имплайд-оддсы.'}:{a:'Фолд',w:'Вне позиции против рейза эта рука теряет деньги.'};
+    return stack>=15*bbv?{a:'Колл',w:'Сет-майнинг: нужно ≥15× от суммы колла в стеках. Не попали сет — сдаёте.'}:{a:'Фолд',w:'Стеки мелкие, имплайд-оддсов на сет нет.'};
+  }
+  if(facing==='3bet'){
+    if(tier===1) return {a:'Рейз',w:'4-бет или олл-ин. Против 3-бета это чистое велью.'};
+    if(tier===2) return {a:'Колл',w:'Колл в позиции. Без топ-пары и лучше на флопе — одна улица максимум.'};
+    return {a:'Фолд',w:'Против 3-бета рука не выдержит трёх улиц давления.'};
+  }
+  if(tier===1) return {a:'Колл',w:'Против олл-ина принимаете только премиумом.'};
+  return {a:'Фолд',w:'Против олл-ина всё, кроме премиума, — минус EV.'};
+}
+
+/* ================= вывод ================= */
+function setVerdict(cls,act,why,eq,thr){
+  E.verdict.className='verdict '+cls;
+  E.verdict.querySelector('.act').textContent=act;
+  E.verdict.querySelector('.why').textContent=why;
+  E.eqv.textContent=eq?(eq*100).toFixed(1)+'%':'—';
+  E.gFill.style.width=(eq*100).toFixed(1)+'%';
+  E.gThr.style.left=(thr*100).toFixed(1)+'%';
+  E.gThr.style.display=thr>0?'':'none';
+}
+function refresh(){
+  renderSlots();renderMatrix();
+  var sbv=+E.sb.value||0,bbv=+E.bb.value||1;
+  E.blindMini.textContent='блайнды '+sbv+'/'+bbv+' · стек '+(+E.stack.value||0);
+  var h=state.hero.filter(function(c){return c!==null;});
+  if(h.length<2){
+    E.rangeMini.textContent='рука не выбрана';
+    E.rangeVerdict.innerHTML='<span style="color:var(--dim)">Выберите две карты руки.</span>';
+    E.analysis.classList.add('locked');
+    setVerdict('','Ждёт карты','Нажмите на пустую карту и выберите руку.',0,0);
+    return;
+  }
+  var chk=inHeroRange(h[0],h[1]),k=chk.k;
+  var label=k.pair?k.code:k.code+(k.suited?'s':'o');
+  E.rangeMini.textContent=label;
+  if(!chk.ok){
+    E.rangeVerdict.innerHTML='<span style="color:var(--lose)">'+label+' — вне диапазона.</span>';
+    E.analysis.classList.add('locked');
+    setVerdict('v-fold','Фолд',label+' нет в списке разрешённых рук. Дисциплина диапазона важнее одной раздачи — расчёт заблокирован.',0,0);
+    return;
+  }
+  E.rangeVerdict.innerHTML='<span style="color:var(--win)">'+label+' — в диапазоне.</span> <span style="color:var(--dim)">Класс: '+TIER_NAME[chk.tier]+'</span>';
+  E.analysis.classList.remove('locked');
+  compute(h,chk.tier,12000);
+}
+function compute(h,tier,iters){
+  var bd=board(),nOpp=+E.opps.value,mode=E.oppRange.value;
+  var bbv=+E.bb.value||1,stack=+E.stack.value||0,potv=+E.pot.value||0,callv=+E.call.value||0;
+  var sim=simulate(h,bd,nOpp,mode,iters),eq=sim.eq;
+  E.simInfo.textContent=(iters/1000)+'k раздач · '+nOpp+' опп.';
+  var req=callv>0?callv/(potv+callv):0;
+  var ev=callv>0?eq*potv-(1-eq)*callv:0;
+  var spr=potv>0?stack/potv:0, mdf=(potv>0&&callv>0)?potv/(potv+callv):0;
+  var o=analyseOuts(h,bd);
+  var M=[['Эквити',(eq*100).toFixed(1)+'%'],['Выигрыш',(sim.win*100).toFixed(1)+'%'],['Сплит',(sim.tie*100).toFixed(1)+'%'],
+    ['Пот-оддсы',callv>0?(req*100).toFixed(1)+'%':'—'],['EV колла',callv>0?((ev>=0?'+':'')+ev.toFixed(1)):'—'],['SPR',potv>0?spr.toFixed(1):'—'],
+    ['MDF',mdf?(mdf*100).toFixed(0)+'%':'—'],['Ауты',o?o.total:'—'],['К риверу',o?(o.prob*100).toFixed(0)+'%':'—']];
+  E.metrics.innerHTML=M.map(function(m){return '<div class="m"><div class="k">'+m[0]+'</div><div class="v">'+m[1]+'</div></div>';}).join('');
+  if(bd.length>=3){
+    var cur=evalHand(h.concat(bd)),nut=nutsNow(h,bd);
+    E.handNow.innerHTML='Сейчас: <b>'+CATS[catOf(cur)]+'</b>';
+    E.nutsInfo.textContent=nut?(cur>=nut.val?'у вас натсы':'натсы: '+CATS[nut.cat]):'';
+  } else {E.handNow.innerHTML='Сейчас: <b>только карманные карты</b>';E.nutsInfo.textContent='';}
+  E.dist.innerHTML=sim.cats.map(function(p,i){
+    return p<0.0005?'':'<div class="brow"><span>'+CATS[i]+'</span><span class="t"><i style="width:'+(p*100).toFixed(1)+'%"></i></span><span class="n">'+(p*100).toFixed(1)+'%</span></div>';
+  }).join('');
+  if(o){
+    var parts=Object.keys(o.byCat).sort(function(a,b){return b-a;}).map(function(c){return o.byCat[c]+' → '+CATS[c];});
+    E.outs.innerHTML='<b style="font-size:21px">'+o.total+'</b> аутов · '+(parts.join(' · ')||'нет улучшений');
+    E.outsNote.textContent='Считаются карты, поднимающие категорию руки (пара — не ниже топ-пары). Точная вероятность '+(o.prob*100).toFixed(1)+'% против '+(o.total*(o.toCome===2?4:2))+'% по правилу 2/4.';
+  } else {
+    E.outs.textContent=bd.length===5?'Ривер вскрыт — рука зафиксирована.':'Ауты считаются с флопа.';
+    E.outsNote.textContent='';
+  }
+  var chips=[];
+  if(bd.length>=3){
+    var all=h.concat(bd),sc=[0,0,0,0],hs=[0,0,0,0],mask=0,s,r;
+    all.forEach(function(c){sc[sOf(c)]++;mask|=1<<rOf(c);});
+    h.forEach(function(c){hs[sOf(c)]++;});
+    for(s=0;s<4;s++) if(sc[s]===4&&hs[s]>0) chips.push(['ok','Флеш-дро '+SUITS[s].s]);
+    var comp=0;
+    for(r=0;r<13;r++) if(!(mask&(1<<r))&&straightHigh(mask|(1<<r))>=0&&straightHigh(mask)<0) comp++;
+    if(comp>=2) chips.push(['ok','Двусторонний стрит-дро']); else if(comp===1) chips.push(['','Гатшот']);
+    var top=Math.max.apply(null,bd.map(rOf));
+    if(h.filter(function(c){return rOf(c)>top;}).length===2) chips.push(['','Две оверкарты']);
+    if(spr>0&&spr<3) chips.push(['no','Низкий SPR — играем на стек']);
+  }
+  E.drawChips.innerHTML=chips.map(function(c){return '<span class="chip '+c[0]+'">'+c[1]+'</span>';}).join('');
+  var cls,act,why;
+  if(bd.length===0){
+    var p=preflopAdvice(tier,E.pos.value,E.facing.value,bbv,stack);
+    act=p.a;why=p.w+' Эквити против '+nOpp+' опп.: '+(eq*100).toFixed(1)+'%.';
+    cls=act==='Фолд'?'v-fold':act==='Колл'?'v-call':'v-raise';
+    setVerdict(cls,act,why,eq,0);return;
+  }
+  if(callv>0){
+    if(eq>=req+0.15){cls='v-raise';act='Рейз';why='Эквити '+(eq*100).toFixed(1)+'% против порога '+(req*100).toFixed(1)+'% — запас '+((eq-req)*100).toFixed(1)+' п.п. Забирайте велью, EV колла '+(ev>=0?'+':'')+ev.toFixed(1)+'.';}
+    else if(eq>=req+0.02){cls='v-call';act='Колл';why='Эквити '+(eq*100).toFixed(1)+'% выше порога '+(req*100).toFixed(1)+'%. Колл прибыльный (EV '+(ev>=0?'+':'')+ev.toFixed(1)+'), рейз пока не оправдан.';}
+    else if(o&&o.total>=8&&spr>3){cls='v-call';act='Колл по имплайду';why='Прямых шансов не хватает ('+(eq*100).toFixed(1)+'% против '+(req*100).toFixed(1)+'%), но '+o.total+' аутов и глубокие стеки дают добор на следующих улицах. Без имплайда — фолд.';}
+    else {cls='v-fold';act='Фолд';why='Эквити '+(eq*100).toFixed(1)+'% ниже порога окупаемости '+(req*100).toFixed(1)+'%. Колл теряет '+ev.toFixed(1)+' за раздачу.';}
+  } else {
+    if(eq>=0.68){cls='v-raise';act='Ставка 66%';why='Эквити '+(eq*100).toFixed(1)+'% — вы впереди. Стройте банк ставкой '+(potv*0.66).toFixed(1)+'.';}
+    else if(eq>=0.55){cls='v-raise';act='Ставка 33%';why='Умеренный перевес ('+(eq*100).toFixed(1)+'%). Тонкое велью и защита: '+(potv*0.33).toFixed(1)+'.';}
+    else if(o&&o.total>=8){cls='v-call';act='Семи-блеф 50%';why=o.total+' аутов, '+(o.prob*100).toFixed(0)+'% дойти к риверу. Ставка '+(potv*0.5).toFixed(1)+' даёт два пути к банку: фолд-эквити плюс своё дро.';}
+    else {cls='v-call';act='Чек';why='Эквити '+(eq*100).toFixed(1)+'% — банк строить нечем. Смотрите следующую карту дёшево.';}
+  }
+  setVerdict(cls,act,why,eq,req);
+}
+function runPrecise(){
+  var h=state.hero.filter(function(c){return c!==null;});
+  if(h.length<2) return;
+  var chk=inHeroRange(h[0],h[1]); if(!chk.ok) return;
+  E.precise.textContent='Считаю…';
+  setTimeout(function(){compute(h,chk.tier,60000);E.precise.textContent='Точный расчёт · 60 000 раздач';},30);
+}
+function resetAll(){
+  state={hero:[null,null],flop:[null,null,null],turn:[null],river:[null]};
+  active={street:'hero',idx:0};E.call.value=0;closeSheets();refresh();
+}
+function init(){
+  try{
+    bindDom();
+    E.nojs.style.display='none';
+    var standalone=window.navigator.standalone||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||false;
+    var ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+    if(ios&&!standalone) E.install.style.display='block';
+    E.btnReset.onclick=resetAll;
+    E.btnSettings.onclick=function(){openSheet(E.sheetSet);};
+    E.setClose.onclick=closeSheets;
+    E.sheetClose.onclick=closeSheets;
+    E.scrim.onclick=closeSheets;
+    E.sheetBack.onclick=openCardSheet;
+    E.precise.onclick=runPrecise;
+    ['sb','bb','stack','pos','opps','oppRange','facing','pot','call'].forEach(function(id){
+      E[id].addEventListener('change',refresh);
+      E[id].addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(refresh,350);});
+    });
+    document.addEventListener('click',onDocClick);
+    refresh();
+  }catch(err){
+    var b=document.getElementById('errbar');
+    if(b){b.style.display='block';b.textContent='Ошибка запуска: '+err.message;}
+  }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+</script>
+</body>
+</html>
