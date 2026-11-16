@@ -1,0 +1,8 @@
+{
+  "skill_name": "theatre-copy",
+  "evals": [
+    {"id": 1, "prompt": "Напиши подпись в инстаграм к премьере «Трёх сестёр» 28 октября в DramaLab и хук для рилса.", "expected_output": "Aggressive DramaLab caption HY/RU/EN with countdown, real scarcity, full Chekhov+Simonov credit, online-only ydt.am, no theatre name, time placeholder; 2-3 Reels hook card sequences.", "files": []},
+    {"id": 2, "prompt": "Нужен таргет на билеты на «Саломею»: 3-4 варианта для Instagram на армянском и русском, плюс строка на постер.", "expected_output": "3-4 distinct angles, primary/headline/description with character counts within Meta limits, aggressive DramaLab register, no invented date or scarcity numbers, poster line options.", "files": []},
+    {"id": 3, "prompt": "Подпись к посту «Маленький принц» в театре Капланяна, показ 2 ноября в 12:00 (дата условная).", "expected_output": "Soft main-stage caption HY/RU/EN: story/quote hook, one CTA in info block, theatre name in info block, no clichés, missing director and age flagged.", "files": []}
+  ]
+}
